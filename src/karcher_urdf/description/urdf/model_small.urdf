@@ -1,0 +1,283 @@
+<?xml version="1.0" ?>
+<robot name="karcher_urdf">
+  <joint name="karcher_urdf__front_steer_joint" type="revolute">
+    <parent link="karcher_urdf__chassis"/>
+    <child link="karcher_urdf__front_dummy_link"/>
+    <origin rpy="0.00000000e+00   1.00000000e-05   0.00000000e+00" xyz="0      0.08    0.0175"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="1000.0" lower="-1.5707" upper="1.5707" velocity="100.0"/>
+  </joint>
+
+  <joint name="karcher_urdf__front_wheel_joint" type="revolute">
+    <parent link="karcher_urdf__front_dummy_link"/>
+    <child link="karcher_urdf__front_wheel"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="1.00000000e+00   0.00000000e+00  -1.70000000e-04"/>
+    <limit effort="0.0" lower="-1e+16" upper="1e+16" velocity="0.0"/>
+  </joint>
+
+  <joint name="karcher_urdf__rear_left_wheel_joint" type="revolute">
+    <parent link="karcher_urdf__chassis"/>
+    <child link="karcher_urdf__rear_left_wheel"/>
+    <origin rpy="3.14150000e-01   1.00000000e-05   3.14150000e-01" xyz="-0.05742 -0.065    0.0275"/>
+    <axis xyz="-0.95105  0.29383 -0.09569"/>
+    <limit effort="0.0" lower="-1e+16" upper="1e+16" velocity="0.0"/>
+  </joint>
+
+  <joint name="karcher_urdf__rear_right_wheel_joint" type="revolute">
+    <parent link="karcher_urdf__chassis"/>
+    <child link="karcher_urdf__rear_right_wheel"/>
+    <origin rpy="3.14150000e-01   1.00000000e-05   3.14150000e-01" xyz="0.05742 -0.065    0.0275"/>
+    <axis xyz="-0.95105  0.29383 -0.09569"/>
+    <limit effort="0.0" lower="-1e+16" upper="1e+16" velocity="0.0"/>
+  </joint>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="karcher_urdf__chassis"/>
+    <child link="karcher_camera"/>
+    <origin xyz="0.2 0 0.2" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <link name="karcher_urdf__chassis">
+    <inertial>
+      <mass value="72.5"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="322.8" ixy="0" ixz="0" iyy="221.43" iyz="0" izz="290.15"/>
+    </inertial>
+
+    <collision name="karcher_urdf__chassis_collision_collision">
+      <origin rpy="0  0  0" xyz="0    0    0.09"/>
+      <geometry>
+        <mesh filename="package://description/meshes/karcher_model.dae" scale="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual name="karcher_urdf__chassis_visual_visual">
+      <origin rpy="0  0  0" xyz="0    0    0.09"/>
+      <geometry>
+        <mesh filename="package://description/meshes/karcher_model.dae" scale="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="karcher_urdf__front_dummy_link">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+
+  <link name="karcher_urdf__front_wheel">
+    <inertial>
+      <mass value="0.5"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.02917" ixy="0" ixz="0" iyy="0.02917" iyz="0" izz="0.025"/>
+    </inertial>
+
+    <collision name="karcher_urdf__front_wheel_collision_collision">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual name="karcher_urdf__front_wheel_visual_visual">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.01"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="karcher_urdf__rear_left_wheel">
+    <inertial>
+      <mass value="1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.325" ixy="0" ixz="0" iyy="0.325" iyz="0" izz="0.5354"/>
+    </inertial>
+
+    <collision name="karcher_urdf__rear_left_wheel_collision_collision">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+
+    <visual name="karcher_urdf__rear_left_wheel_visual_visual">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.01016" radius="0.02"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="karcher_urdf__rear_right_wheel">
+    <inertial>
+      <mass value="1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.325" ixy="0" ixz="0" iyy="0.325" iyz="0" izz="0.5354"/>
+    </inertial>
+
+    <collision name="karcher_urdf__rear_right_wheel_collision_collision">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+    </collision>
+
+    <visual name="karcher_urdf__rear_right_wheel_visual_visual">
+      <origin rpy="0.31415 -0.15707  0.31415" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.01016" radius="0.02"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="karcher_camera">
+    <collision>
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="5 5 5"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="5 5 5"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <!-- <link name="karcher_camera">
+    <collision>
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin  rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link> -->
+
+	<transmission name="front_steer_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="front_steer_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="front_steer_act">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="front_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="front_wheel_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="front_wheel_act">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="rear_right_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="rear_right_wheel_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="rear_right_wheel_act">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="rear_left_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="rear_left_wheel_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="rear_left_wheel_act">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>karcher/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+	<gazebo>
+		<plugin name="KarcherUrdfPlugin" filename="libKarcherUrdfPlugin.so">
+			<max_steer>0.442</max_steer>
+			<max_speed>1.5278</max_speed>
+			<fwheel_steering_p_gain>3</fwheel_steering_p_gain>
+			<fwheel_steering_i_gain>4</fwheel_steering_i_gain>
+			<fwheel_steering_d_gain>1</fwheel_steering_d_gain>
+			<chassis_aero_force_gain>0.63045</chassis_aero_force_gain>
+			<front_torque>0</front_torque>
+			<back_torque>200</back_torque>
+			<front_brake_torque>0</front_brake_torque>
+			<back_brake_torque>200</back_brake_torque>
+			<wheel_base>1.006</wheel_base>
+			<rear_track>1.1494</rear_track>
+		</plugin>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/karcher_urdf</robotNamespace>
+		</plugin>
+	</gazebo>
+
+</robot>

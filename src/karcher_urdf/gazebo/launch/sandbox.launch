@@ -1,0 +1,29 @@
+<launch>
+
+  <arg name="model" default="$(find karcher_urdf)/urdf/model.urdf"/>
+  <arg name="gui" default="true" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find karcher_urdf)/../gazebo/worlds/utown.world"/>    
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="verbose" value="true"/>
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <rosparam command="load" file="$(find karcher_urdf)/../gazebo/launch/jointstatecontroller.yaml"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/karcher_urdf" args="joint_state_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <remap from="/joint_states" to="/karcher_urdf/joint_states"/>
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz"/>
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args="-urdf -model karcher_urdf -param robot_description -x 17.947973 -y -25.932304 -z 2.328076 -R -0.041901 -P 0.00 -Y -1.217705"/>
+</launch>
+
+ 
+

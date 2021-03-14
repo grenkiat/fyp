@@ -1,0 +1,14 @@
+ <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <rosparam command="load" file="$(find karcher_urdf)/../gazebo/launch/jointstatecontroller.yaml"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/karcher_urdf" args="joint_state_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <remap from="/joint_states" to="/karcher_urdf/joint_states"/>
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz"/>
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args="-urdf -model karcher_urdf -param robot_description"/> 
